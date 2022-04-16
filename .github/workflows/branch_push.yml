@@ -30,7 +30,7 @@ jobs:
   build:
     name: Release
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'releases/v')
+    if: github.event.pull_request.merged == true
     steps:
       - run: echo $SHA
         env:

@@ -23,18 +23,15 @@ name: demo
 #           git log -n 1 origin/demo3 --pretty=format:"%H"
 
 on:
-  pull_request:
-    types:
-      - closed
+  push:
 jobs:
   build:
     name: Release
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
     steps:
       - run: echo $SHA
         env:
-          SHA: ${{ github.event.pull_request.head.sha }}
+          SHA: ${{ github.event.push.head.sha }}
 
     # name: Deploy / Master
     # if: github.ref == 'refs/heads/main'

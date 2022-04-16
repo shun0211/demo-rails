@@ -1,5 +1,5 @@
 name: demo
-on:
+# on:
 #   push:
 #   pull_request:
 #     types:

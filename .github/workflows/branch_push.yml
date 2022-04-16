@@ -1,5 +1,5 @@
 name: demo
-on:
+# on:
 #   push:
 #   pull_request:
 #     types:
@@ -31,6 +31,10 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'releases/v')
+    steps:
+      - run: echo $SHA
+        env:
+          SHA: ${{ github.event.pull_request.head.sha }}
 
     # name: Deploy / Master
     # if: github.ref == 'refs/heads/main'

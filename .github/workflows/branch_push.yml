@@ -1,4 +1,4 @@
-name: CI/CD
+name: demo
 on:
   push:
   pull_request:
@@ -13,16 +13,14 @@ jobs:
         run: |
           echo ${{ github.sha }}
           echo ${{ github.event.before }}
-          echo ${{ toJson(github.event.commits) }}
-          echo ${{ github.event.push.head.sha }}
       - run: echo $SHA
         if: github.event.pull_request.merged == true
         env:
           SHA: ${{ github.event.pull_request.head.sha }}
       - uses: actions/checkout@v3
       - run: |
-          git fetch origin test24
-          git log -n 1 origin/test24 --pretty=format:"%H"
+          git fetch origin demo3
+          git log -n 1 origin/demo3 --pretty=format:"%H"
 
     # name: Deploy / Master
     # if: github.ref == 'refs/heads/main'

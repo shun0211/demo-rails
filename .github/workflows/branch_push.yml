@@ -1,10 +1,11 @@
 name: CI/CD
 on:
   push:
-  # pull_request:
-    # types: [ closed ]
+  pull_request:
+    types:
+      - closed
 jobs:
-  deploy_master:
+  demo:
     name: demo
     runs-on: ubuntu-latest
     steps:
@@ -12,12 +13,12 @@ jobs:
         run: |
           echo ${{ github.sha }}
           echo ${{ github.event.before }}
-          echo ${{ github.event.pull_request.head.sha }}
+          echo ${{ toJson(github.event.commits) }}
           echo ${{ github.event.push.head.sha }}
-      # - run: echo $SHA
-      #   if: github.event.pull_request.merged == true
-      #   env:
-      #     SHA: ${{ github.event.pull_request.head.sha }}
+      - run: echo $SHA
+        if: github.event.pull_request.merged == true
+        env:
+          SHA: ${{ github.event.pull_request.head.sha }}
       - uses: actions/checkout@v3
       - run: |
           git fetch origin test24

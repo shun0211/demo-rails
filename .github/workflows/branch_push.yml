@@ -1,26 +1,36 @@
 name: demo
 on:
-  push:
+#   push:
+#   pull_request:
+#     types:
+#       - closed
+# jobs:
+#   demo:
+#     name: demo
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Show github properties
+#         run: |
+#           echo ${{ github.sha }}
+#           echo ${{ github.event.before }}
+#       - run: echo $SHA
+#         if: github.event.pull_request.merged == true
+#         env:
+#           SHA: ${{ github.event.pull_request.head.sha }}
+#       - uses: actions/checkout@v3
+#       - run: |
+#           git fetch origin demo3
+#           git log -n 1 origin/demo3 --pretty=format:"%H"
+
+on:
   pull_request:
     types:
       - closed
 jobs:
-  demo:
-    name: demo
+  build:
+    name: Release
     runs-on: ubuntu-latest
-    steps:
-      - name: Show github properties
-        run: |
-          echo ${{ github.sha }}
-          echo ${{ github.event.before }}
-      - run: echo $SHA
-        if: github.event.pull_request.merged == true
-        env:
-          SHA: ${{ github.event.pull_request.head.sha }}
-      - uses: actions/checkout@v3
-      - run: |
-          git fetch origin demo3
-          git log -n 1 origin/demo3 --pretty=format:"%H"
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'releases/v')
 
     # name: Deploy / Master
     # if: github.ref == 'refs/heads/main'
